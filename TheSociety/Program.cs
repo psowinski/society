@@ -12,19 +12,27 @@ namespace TheSociety
          var mainWindow = CreateWindows(backBuffer);
 
          var world = new World();
-         var viewport = new Viewport(mainWindow.Children[1], world);
+         var worldWindow = mainWindow.Children[1];
+         var viewport = new Viewport(worldWindow.Width, worldWindow.Height, world.Width, world.Height);
 
          var run = true;
          while (run)
          {
             mainWindow.Draw();
-            world.Render(viewport, backBuffer);
+            world.Render(viewport, worldWindow);
             backBuffer.Flip();
+            run = ProcessKeys(viewport);
+         }
+      }
+
+      private static bool ProcessKeys(Viewport viewport)
+      {
+         if (Console.KeyAvailable)
+         {
             switch (Console.ReadKey(true).Key)
             {
                case ConsoleKey.Escape:
-                  run = false;
-                  break;
+                  return false;
                case ConsoleKey.LeftArrow:
                   viewport.X -= 1;
                   break;
@@ -39,6 +47,7 @@ namespace TheSociety
                   break;
             }
          }
+         return true;
       }
 
       private static FrameWindow CreateWindows(BackBuffer backBuffer)
@@ -48,7 +57,7 @@ namespace TheSociety
 
          var mainArea = mainWindow.ClientArea;
          var leftWindow = new Window(backBuffer);
-         leftWindow.Area(mainArea.LimitVertically(splitter.Column + 1));
+         leftWindow.Area(mainArea.LimitVertically(splitter.Column));
          var rightWindow = new Window(backBuffer);
          rightWindow.Area(mainArea.StartVertically(splitter.Column + 1));
 

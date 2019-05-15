@@ -35,12 +35,12 @@ namespace TheSociety
 
       private void DrawCorners()
       {
-         this.BackBuffer.Draw(X, Y, '\u2554');
-         this.BackBuffer.Draw(Width - 1, 0, '\u2557');
-         this.BackBuffer.Draw(X, Height - 1, '\u255A');
-         this.BackBuffer.Draw(Width - 1, Height - 1, '\u255D');
+         Draw(0, 0, '\u2554');
+         Draw(Width - 1, 0, '\u2557');
+         Draw(0, Height - 1, '\u255A');
+         Draw(Width - 1, Height - 1, '\u255D');
       }
 
-      public Area ClientArea => new Area(X + 1, Y + 1, Width - 2, Height - 2);
+      public Area ClientArea => new Area(1, 1, Width - 2, Height - 2);
    }
 }

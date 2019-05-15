@@ -21,8 +21,8 @@ namespace TheSociety
 
       private void DrawIntersection()
       {
-         this.BackBuffer.Draw(this.Column, Y, '\u2566');
-         this.BackBuffer.Draw(this.Column, Height - 1, '\u2569');
+         Draw(this.Column, Y, '\u2566');
+         Draw(this.Column, Height - 1, '\u2569');
       }
    }
 }

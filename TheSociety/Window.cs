@@ -41,19 +41,24 @@ namespace TheSociety
 
       public virtual void Draw()
       {
-         BackBuffer.Draw(X, Y, 'W');
+         Draw(0, 0, 'W');
+      }
+
+      public void Draw(int x, int y, char c)
+      {
+         BackBuffer.Draw(AbsoluteX(x), AbsoluteY(y), c);
       }
 
       public void DrawVerticalLine(int col, char c)
       {
          for (int y = 0; y < Height - 1; ++y)
-            this.BackBuffer.Draw(col, y, c);
+            Draw(col, y, c);
       }
 
       public void DrawHorizontalLine(int row, char c)
       {
          for (int x = 0; x < Width - 1; ++x)
-            this.BackBuffer.Draw(x, row, c);
+            Draw(x, row, c);
       }
 
       public int AbsoluteX(int x)

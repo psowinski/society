@@ -4,8 +4,10 @@ namespace TheSociety
 {
    public enum WorldTile
    {
-      Empty,
-      Center
+      Grass,
+      FlowerWhite,
+      FlowerBlack,
+      House
    }
 
    public class World
@@ -16,16 +18,27 @@ namespace TheSociety
          for (var row = 0; row < Height; ++row)
          {
             for (var col = 0; col < Width; ++col)
-               this.map[col, row] = rnd.Next(0, 100) < 10 ? WorldTile.Center : WorldTile.Empty;
+            {
+               var v = rnd.Next(0, 99);
+               if (v < 1)
+                  this.map[col, row] = WorldTile.FlowerBlack;
+               else if (v < 2)
+                  this.map[col, row] = WorldTile.FlowerWhite;
+               else
+                  this.map[col, row] = WorldTile.Grass;
+
+            }
          }
+         this.map[Width / 2, Height / 2] = WorldTile.House;
       }
+
       private readonly WorldTile[,] map = new WorldTile[100, 100];
       public int Width => this.map.GetLength(0);
       public int Height => this.map.GetLength(1);
 
       public WorldTile this[int col, int row] => this.map[col, row];
 
-      public void Render(Viewport viewport, BackBuffer backBuffer)
+      public void Render(Viewport viewport, Window drawable)
       {
          for (var row = 0; row < viewport.Height; ++row)
          {
@@ -33,7 +46,7 @@ namespace TheSociety
             {
                var tile = this.map[viewport.TranslateX(col), viewport.TranslateY(row)];
                var c = TileToChar(tile);
-               backBuffer.Draw(col, row, c);
+               drawable.Draw(col, row, c);
             }
          }
       }
@@ -42,7 +55,9 @@ namespace TheSociety
       {
          switch (tile)
          {
-            case WorldTile.Center: return '\u25ED';
+            case WorldTile.FlowerWhite: return '\u2740';
+            case WorldTile.FlowerBlack: return '\u273F';
+            case WorldTile.House: return '\u25ED';
             default: return '\u2591';
          }
       }

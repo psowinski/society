@@ -14,8 +14,9 @@ namespace TheSociety
 
       public BackBuffer(int width, int height)
       {
-         Font.SetConsoleFont("Kreative Square");
+         ConsoleEx.SetFont("Kreative Square");
          Console.OutputEncoding = Encoding.UTF8;
+         Console.CursorVisible = false;
 
          Resize(width, height);
       }

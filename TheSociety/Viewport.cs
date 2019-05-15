@@ -2,15 +2,17 @@
 {
    public class Viewport
    {
-      private readonly Window window;
-      private readonly World world;
-      public int Width => window.Width;
-      public int Height => window.Height;
+      private readonly int rangeX;
+      private readonly int rangeY;
+      public int Width { get; }
+      public int Height { get; }
 
-      public Viewport(Window window, World world)
+      public Viewport(int width, int height, int rangeX, int rangeY)
       {
-         this.window = window;
-         this.world = world;
+         this.rangeX = rangeX;
+         this.rangeY = rangeY;
+         Width = width;
+         Height = height;
       }
 
       private int x = 0;
@@ -19,7 +21,7 @@
          get => this.x;
          set
          {
-            if (value >= 0 && value < world.Width - Width) this.x = value;
+            if (value >= 0 && value < rangeX - Width) this.x = value;
          }
       }
 
@@ -29,17 +31,17 @@
          get => this.y;
          set
          {
-            if (value >= 0 && value < world.Height - Height) this.y = value;
+            if (value >= 0 && value < rangeY - Height) this.y = value;
          }
       }
 
-      public int TranslateX(int x)
+      public int TranslateX(int col)
       {
-         return window.AbsoluteX(x + this.x);
+         return col + this.x;
       }
-      public int TranslateY(int y)
+      public int TranslateY(int row)
       {
-         return window.AbsoluteY(y + this.y);
+         return row + this.y;
       }
    }
 }

@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace TheSociety
 {
-   class Font
+   class ConsoleEx
    {
       [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
       internal unsafe struct CONSOLE_FONT_INFO_EX
@@ -41,7 +41,7 @@ namespace TheSociety
       [DllImport("kernel32.dll", SetLastError = true)]
       static extern int SetConsoleFont(IntPtr hOut, uint dwFontNum);
 
-      public static bool SetConsoleFont(string fontName = "Lucida Console")
+      public static bool SetFont(string fontName = "Lucida Console")
       {
          unsafe
          {
