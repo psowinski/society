@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Text;
 
 namespace TheSociety
@@ -7,7 +8,6 @@ namespace TheSociety
    {
       static void Main(string[] args)
       {
-
          var backBuffer = new BackBuffer(83, 42);
          var mainWindow = CreateWindows(backBuffer);
 
@@ -15,13 +15,30 @@ namespace TheSociety
          var worldWindow = mainWindow.Children[1];
          var viewport = new Viewport(worldWindow.Width, worldWindow.Height, world.Width, world.Height);
 
+         var surface = new RenderSurface(worldWindow, viewport);
+
+         var scene = new Scene();
+         scene.Items.Add(new WorldRenderer(world));
+         scene.Items.Add(new OkiRenderer(new Oki(5, 5)));
+         scene.Items.Add(new OkiRenderer(new Oki(7, 5)));
+         scene.Items.Add(new OkiRenderer(new Oki(7, 7)));
+         scene.Items.Add(new OkiRenderer(new Oki(6, 3)));
+         scene.Items.Add(new OkiRenderer(new Oki(4, 8)));
+
+         var gameTime = new GameTime();
+         gameTime.Start();
+
          var run = true;
          while (run)
          {
+            scene.Update(gameTime);
+
             mainWindow.Draw();
-            world.Render(viewport, worldWindow);
+            scene.Render(surface);
             backBuffer.Flip();
+
             run = ProcessKeys(viewport);
+            gameTime.Tic();
          }
       }
 

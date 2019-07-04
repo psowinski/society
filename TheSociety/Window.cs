@@ -41,32 +41,39 @@ namespace TheSociety
 
       public virtual void Draw()
       {
-         Draw(0, 0, 'W');
+         DrawText(0, 0, "Empty window");
+      }
+
+      public void DrawText(int x, int y, string str)
+      {
+         if (x >= 0 && x < Width && y >= 0 && y < Height)
+            BackBuffer.DrawText(ToWorldX(x), ToWorldY(y), str);
       }
 
       public void Draw(int x, int y, char c)
       {
-         BackBuffer.Draw(AbsoluteX(x), AbsoluteY(y), c);
+         if (x >= 0 && x < Width && y >= 0 && y < Height)
+            BackBuffer.Draw(ToWorldX(x), ToWorldY(y), c);
       }
 
       public void DrawVerticalLine(int col, char c)
       {
-         for (int y = 0; y < Height - 1; ++y)
+         for (var y = 0; y < Height - 1; ++y)
             Draw(col, y, c);
       }
 
       public void DrawHorizontalLine(int row, char c)
       {
-         for (int x = 0; x < Width - 1; ++x)
+         for (var x = 0; x < Width - 1; ++x)
             Draw(x, row, c);
       }
 
-      public int AbsoluteX(int x)
+      private int ToWorldX(int x)
       {
          return x + this.area.X;
       }
 
-      public int AbsoluteY(int y)
+      private int ToWorldY(int y)
       {
          return y + this.area.Y;
       }

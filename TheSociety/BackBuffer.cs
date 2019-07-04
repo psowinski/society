@@ -49,6 +49,13 @@ namespace TheSociety
             this.data[row * LineWidth + LineEndIndex] = '\n';
       }
 
+      public void DrawText(int x, int y, string str)
+      {
+         var chars = str.ToCharArray();
+         for(var i = 0; i < chars.Length; ++i)
+            Draw(x + i, y, chars[i]);
+      }
+
       public void Draw(int x, int y, char c)
       {
          if (x >= 0 && x < Width && y >= 0 && y < Height)

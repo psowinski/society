@@ -35,13 +35,24 @@
          }
       }
 
-      public int TranslateX(int col)
+      public int ToWorldX(int col)
       {
          return col + this.x;
       }
-      public int TranslateY(int row)
+
+      public int ToWorldY(int row)
       {
          return row + this.y;
+      }
+
+      public int FromWorldX(int col)
+      {
+         return col - this.x;
+      }
+
+      public int FromWorldY(int row)
+      {
+         return row - this.y;
       }
    }
 }

@@ -10,7 +10,7 @@ namespace TheSociety
       House
    }
 
-   public class World
+   public class World : IUpdatable
    {
       public World()
       {
@@ -38,29 +38,8 @@ namespace TheSociety
 
       public WorldTile this[int col, int row] => this.map[col, row];
 
-      public void Render(Viewport viewport, Window drawable)
+      public void Update(GameTime time)
       {
-         for (var row = 0; row < viewport.Height; ++row)
-         {
-            for (var col = 0; col < viewport.Width; ++col)
-            {
-               var tile = this.map[viewport.TranslateX(col), viewport.TranslateY(row)];
-               var c = TileToChar(tile);
-               drawable.Draw(col, row, c);
-            }
-         }
-      }
-
-      private char TileToChar(WorldTile tile)
-      {
-         switch (tile)
-         {
-            case WorldTile.FlowerWhite: return '\u2740';
-            case WorldTile.FlowerBlack: return '\u273F';
-            case WorldTile.House: return '\u25ED';
-            default: return '\u2591';
-         }
       }
    }
-
 }

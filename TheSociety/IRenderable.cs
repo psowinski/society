@@ -1,7 +1,7 @@
 ﻿namespace TheSociety
 {
-   public interface IRenderable
+   public interface IRenderable : IUpdatable
    {
-      void Render(Viewport viewport);
+      void Render(ISurface surface);
    }
 }
